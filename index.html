@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Sentiment Analyzer - Analyze reviews and text in real-time with word highlighting and emotion breakdown.">
+    <title>Sentiment Analyzer - Deep Text Analytics</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+</head>
+<body>
+    <!-- Background Gradients -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-symbol">&lt;/&gt;</span>
+                <span class="logo-text">Sentiment Analyzer</span>
+            </div>
+            <button id="theme-toggle" class="theme-toggle-btn">🌙 Dark Mode</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="dashboard-grid">
+            
+            <!-- Left Side: Input Panel -->
+            <section class="panel input-panel">
+                <div class="panel-header">
+                    <h2>Text Analysis</h2>
+                    <p class="panel-subtitle">Type or paste your text below for real-time sentiment extraction.</p>
+                </div>
+                
+                <div class="sample-buttons">
+                    <span class="sample-label">Load Sample:</span>
+                    <button id="btn-sample-pos" class="btn-sample">😊 Positive Review</button>
+                    <button id="btn-sample-neg" class="btn-sample">😡 Negative Review</button>
+                    <button id="btn-sample-neutral" class="btn-sample">😐 Neutral Info</button>
+                </div>
+
+                <div class="textarea-wrapper">
+                    <textarea id="text-input" placeholder="Type something here... e.g., 'This product is absolutely amazing! I am thrilled with the fast shipping and excellent service. Highly recommend!'" maxlength="5000"></textarea>
+                    <div class="char-counter"><span id="current-char">0</span> / 5000</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-clear" class="btn btn-secondary">Clear Text</button>
+                    <button id="btn-analyze" class="btn btn-primary">Analyze Sentiment</button>
+                </div>
+
+                <!-- Text Statistics -->
+                <div class="text-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-words">0</span>
+                        <span class="stat-label">Words</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-chars">0</span>
+                        <span class="stat-label">Characters</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-sentences">0</span>
+                        <span class="stat-label">Sentences</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-readtime">0s</span>
+                        <span class="stat-label">Read Time</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Side: Results Panel -->
+            <section class="panel results-panel">
+                <div class="panel-header">
+                    <h2>Analysis Results</h2>
+                    <p class="panel-subtitle">Detailed breakdown of the extracted sentiments and emotions.</p>
+                </div>
+
+                <div class="results-layout">
+                    <!-- Gauge Meter -->
+                    <div class="gauge-container">
+                        <div class="gauge-card">
+                            <div class="gauge-svg-wrapper">
+                                <svg class="gauge-svg" viewBox="0 0 100 100">
+                                    <circle class="gauge-bg" cx="50" cy="50" r="40" />
+                                    <circle class="gauge-fill" id="gauge-fill-bar" cx="50" cy="50" r="40" />
+                                </svg>
+                                <div class="gauge-center">
+                                    <span class="gauge-score" id="result-score">0.0</span>
+                                    <span class="gauge-label" id="result-label">Neutral</span>
+                                </div>
+                            </div>
+                            <p class="gauge-range-label">Score Range: -5.0 to +5.0</p>
+                        </div>
+                    </div>
+
+                    <!-- Emotion Breakdown -->
+                    <div class="emotions-container">
+                        <h3>Primary Emotions</h3>
+                        <div class="emotion-bar-group">
+                            <div class="emotion-label-row">
+                                <span class="emotion-name">😊 Joy / Happiness</span>
+                                <span class="emotion-pct" id="pct-joy">0%</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill joy-bar" id="fill-joy"></div>
+                            </div>
+                        </div>
+                        <div class="emotion-bar-group">
+                            <div class="emotion-label-row">
+                                <span class="emotion-name">😢 Sadness / Disappointment</span>
+                                <span class="emotion-pct" id="pct-sadness">0%</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill sadness-bar" id="fill-sadness"></div>
+                            </div>
+                        </div>
+                        <div class="emotion-bar-group">
+                            <div class="emotion-label-row">
+                                <span class="emotion-name">😡 Anger / Frustration</span>
+                                <span class="emotion-pct" id="pct-anger">0%</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill anger-bar" id="fill-anger"></div>
+                            </div>
+                        </div>
+                        <div class="emotion-bar-group">
+                            <div class="emotion-label-row">
+                                <span class="emotion-name">😨 Fear / Anxiety</span>
+                                <span class="emotion-pct" id="pct-fear">0%</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar-fill fear-bar" id="fill-fear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Word Highlights Preview -->
+                <div class="highlights-container">
+                    <h3>Semantic Highlights</h3>
+                    <p class="highlight-info">Highlighted words: <span class="hl-legend positive-hl">Positive</span> and <span class="hl-legend negative-hl">Negative</span> tokens.</p>
+                    <div class="highlight-preview" id="highlight-preview-box">
+                        <span class="placeholder-text">Enter text in the left panel to see word highlights.</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- History Log Section -->
+        <section class="panel history-panel">
+            <div class="panel-header-inline">
+                <h2>Analysis History</h2>
+                <button id="btn-clear-history" class="btn-clear-link">Clear History</button>
+            </div>
+            <div class="history-list" id="history-container">
+                <p class="placeholder-text">No items analyzed in this session yet.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Adithya K. Built with HTML5, CSS3, and JavaScript.</p>
+    </footer>
+</body>
+</html>
