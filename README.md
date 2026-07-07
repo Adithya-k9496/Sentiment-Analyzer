@@ -9,7 +9,7 @@ Built with modern web technologies, the app runs entirely in the browser, requir
 ## 🔗 Live Site Demo
 
 Once deployed, your live site will be hosted here:  
-👉 `https://<your-username>.github.io/sentiment-analyzer/`
+👉  https://adithya-k9496.github.io/Sentiment-Analyzer/
 
 ---
 
